@@ -28,7 +28,7 @@
           </b-nav-form>
           <b-navbar-nav class="ml-auto" right>
             <b-nav-item v-if="!token" to="/register">Registruj se</b-nav-item>
-            <b-nav-item v-if="!token" to="/login">Prijavi se</b-nav-item>
+            <b-nav-item v-if="!token" to="/userlogin">Prijavi se</b-nav-item>
             <b-nav-item-dropdown v-else :text="username">
               <b-dropdown-item :to="`/profil`" >Profil</b-dropdown-item>
               <b-dropdown-item @click="logout()">Odjavi se</b-dropdown-item>

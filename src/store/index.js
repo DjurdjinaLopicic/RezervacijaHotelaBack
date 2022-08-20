@@ -95,7 +95,7 @@ export default new Vuex.Store({
 
     //Rezervacija
     fetchRezervacijeByKorisnik( {commit, state}, id ){
-      fetch(`http://127.0.0.1:8500/rezrevacije/byKorisnik/${id}`, {
+      fetch(`https://rezervacija-hotela-rest.herokuapp.com/rezrevacije/byKorisnik/${id}`, {
         headers: { 'Authorization': `Bearer ${state.token}` }
       })
       .then( obj => obj.json() )
@@ -106,7 +106,7 @@ export default new Vuex.Store({
 
     postRezervacija( {commit, state}, obj ){
       const username = obj.username;
-      fetch('http://127.0.0.1:8500/rezervacije/', {
+      fetch('https://rezervacija-hotela-rest.herokuapp.com/rezervacije/', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -124,13 +124,13 @@ export default new Vuex.Store({
 
     //Korisnik
     fetchKorisnikByUsername( {commit, state}, username ){
-      fetch(`http://127.0.0.1:8500/korisnici/byUsername/${username}`, {
+      fetch(`https://rezervacija-hotela-rest.herokuapp.com/korisnici/byUsername/${username}`, {
         headers: { 'Authorization': `Bearer ${state.token}` }
       })
       .then( obj => obj.json() )
         .then( res => {
           commit('addKorisnik', res) ;
-          fetch(`http://127.0.0.1:8500/rezervacije/byKorisnik/${res.id}`, {
+          fetch(`https://rezervacija-hotela-rest.herokuapp.com/rezervacije/byKorisnik/${res.id}`, {
             headers: { 'Authorization': `Bearer ${state.token}` }
           })
           .then( obj => obj.json() )
@@ -142,7 +142,7 @@ export default new Vuex.Store({
 
     isUsernameAvailable({ commit }, username) {
       return new Promise( (resolve, reject) => {
-        fetch(`http://127.0.0.1:8500/korisnici/isSlobodan/${username}`)
+        fetch(`https://rezervacija-hotela-rest.herokuapp.com/korisnici/isSlobodan/${username}`)
         .then( res => res.json() )
         .then( slobodan => {
           resolve(slobodan);
@@ -152,7 +152,7 @@ export default new Vuex.Store({
 
     updateKorisnik( {commit, state}, obj ){
       const username = obj.username;
-      fetch(`http://127.0.0.1:8500/korisnici/${obj.id}`, {
+      fetch(`https://rezervacija-hotela-rest.herokuapp.com/korisnici/${obj.id}`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',
@@ -172,7 +172,7 @@ export default new Vuex.Store({
 
     //Rezervacija
     fetchKorisnikUsernameById( {commit, state}, id ){
-      fetch(`http://127.0.0.1:8500/korisnici/username/byId/${id}`, {
+      fetch(`https://rezervacija-hotela-rest.herokuapp.com/korisnici/username/byId/${id}`, {
         headers: { 'Authorization': `Bearer ${state.token}` }
       })
       .then( obj => obj.json() )
@@ -184,7 +184,7 @@ export default new Vuex.Store({
     //Tipovi soba
 
     fetchTipoviSoba({ commit }){
-      fetch('http://127.0.0.1:8500/tipoviSoba')
+      fetch('https://rezervacija-hotela-rest.herokuapp.com/tipoviSoba')
         .then( obj => obj.json() )
           .then( res => {
             commit('addTipoviSoba', res) ;
@@ -194,7 +194,7 @@ export default new Vuex.Store({
     //Gradovi
 
     fetchGradovi({ commit }){
-      fetch('http://127.0.0.1:8500/gradovi')
+      fetch('https://rezervacija-hotela-rest.herokuapp.com/gradovi')
         .then( obj => obj.json() )
           .then( res => {
             commit('addGradovi', res) ;
@@ -203,7 +203,7 @@ export default new Vuex.Store({
 
     //Sobe
     fetchSobeIdsByHotel({ commit }, id){
-      fetch(`http://127.0.0.1:8500/sobe/byHotel/${id}`)
+      fetch(`https://rezervacija-hotela-rest.herokuapp.com/sobe/byHotel/${id}`)
       .then( obj => obj.json() )
         .then( res => {
           commit('addSobeIds', res) ;
@@ -216,11 +216,11 @@ export default new Vuex.Store({
         if(item) {
           resolve(item);
         }else{
-          fetch(`http://127.0.0.1:8500/sobe/${id}`)
+          fetch(`https://rezervacija-hotela-rest.herokuapp.com/sobe/${id}`)
           .then( obj => obj.json() )
           .then( res => {
             const soba = res;
-            fetch(`http://127.0.0.1:8500/slike/bySoba/${id}`)
+            fetch(`https://rezervacija-hotela-rest.herokuapp.com/slike/bySoba/${id}`)
             .then( obj => obj.json() )
             .then(slike => {
               const s = slike;
@@ -239,7 +239,7 @@ export default new Vuex.Store({
     //Hoteli
 
     fetchHoteliIds({ commit }){
-      fetch('http://127.0.0.1:8500/hoteli/all/ids')
+      fetch('https://rezervacija-hotela-rest.herokuapp.com/hoteli/all/ids')
       .then( obj => obj.json() )
         .then( res => {
           commit('addHoteliIds', res) ;
@@ -247,7 +247,7 @@ export default new Vuex.Store({
     },
     
     fetchHoteliIdsByGrad({ commit }, id){
-      fetch(`http://127.0.0.1:8500/hoteli/byGrad/${id}`)
+      fetch(`https://rezervacija-hotela-rest.herokuapp.com/hoteli/byGrad/${id}`)
       .then( obj => obj.json() )
         .then( res => {
           commit('addHoteliIds', res) ;
@@ -255,7 +255,7 @@ export default new Vuex.Store({
     },    
 
     fetchHoteliIdsByNaziv({ commit }, naziv){
-      fetch(`http://127.0.0.1:8500/hoteli/byNaziv/${naziv}`)
+      fetch(`https://rezervacija-hotela-rest.herokuapp.com/hoteli/byNaziv/${naziv}`)
       .then( obj => obj.json() )
         .then( res => {
           commit('addHoteliIds', res) ;
@@ -263,7 +263,7 @@ export default new Vuex.Store({
     },
     
     fetchHoteliIdsByCenaSobeMin({ commit }, cena){
-      fetch(`http://127.0.0.1:8500/hoteli/byCenaSobeMin/${cena}`)
+      fetch(`https://rezervacija-hotela-rest.herokuapp.com/hoteli/byCenaSobeMin/${cena}`)
       .then( obj => obj.json() )
         .then( res => {
           commit('addHoteliIds', res) ;
@@ -271,7 +271,7 @@ export default new Vuex.Store({
     },
     
     fetchHoteliIdsByCenaSobeMax({ commit }, cena){
-      fetch(`http://127.0.0.1:8500/hoteli/byCenaSobeMax/${cena}`)
+      fetch(`https://rezervacija-hotela-rest.herokuapp.com/hoteli/byCenaSobeMax/${cena}`)
       .then( obj => obj.json() )
         .then( res => {
           commit('addHoteliIds', res) ;
@@ -279,7 +279,7 @@ export default new Vuex.Store({
     },
     
     fetchHoteliIdsByCenaSobeRange({ commit }, obj ){
-      fetch(`http://127.0.0.1:8500/hoteli/byCenaSobeRange/${obj.cena1}/${obj.cena2}`)
+      fetch(`https://rezervacija-hotela-rest.herokuapp.com/hoteli/byCenaSobeRange/${obj.cena1}/${obj.cena2}`)
       .then( obj => obj.json() )
         .then( res => {
           commit('addHoteliIds', res) ;
@@ -292,16 +292,16 @@ export default new Vuex.Store({
         if(item) {
           resolve(item);
         }else{
-          fetch(`http://127.0.0.1:8500/hoteli/${id}`)
+          fetch(`https://rezervacija-hotela-rest.herokuapp.com/hoteli/${id}`)
           .then( obj => obj.json() )
           .then( res => {
             const hotel = res;
-            fetch(`http://127.0.0.1:8500/slike/byHotel/${id}`)
+            fetch(`https://rezervacija-hotela-rest.herokuapp.com/slike/byHotel/${id}`)
             .then( obj => obj.json() )
             .then(slike => {
               const s = slike;
               hotel['slike'] = s;
-              fetch(`http://127.0.0.1:8500/komentari/byHotel/${id}`, {
+              fetch(`https://rezervacija-hotela-rest.herokuapp.com/komentari/byHotel/${id}`, {
                 headers: { 'Authorization': `Bearer ${state.token}` }})
               .then( obj => obj.json() )
               .then(komentari => {
@@ -316,7 +316,7 @@ export default new Vuex.Store({
     },
 
     fetchHoteliByTipSobe({ commit }, naziv){
-      fetch(`http://127.0.0.1:8500/hoteli/byTipSobe/${naziv}`)
+      fetch(`https://rezervacija-hotela-rest.herokuapp.com/hoteli/byTipSobe/${naziv}`)
       .then( obj => obj.json() )
         .then( res => {
           commit('addHoteliIds', res) ;
@@ -327,7 +327,7 @@ export default new Vuex.Store({
 
     register({ commit }, obj) {
       const username = obj.username;
-      fetch('http://127.0.0.1:9000/register', {
+      fetch('https://rezervacija-hotela-auth.herokuapp.com/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(obj)
@@ -341,7 +341,7 @@ export default new Vuex.Store({
     login({ commit }, obj) {
       return new Promise( (resolve, reject) => {
         const username = obj.username;
-        fetch('http://127.0.0.1:9000/login', {
+        fetch('https://rezervacija-hotela-auth.herokuapp.com/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(obj)
